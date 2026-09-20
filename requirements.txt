@@ -1,0 +1,2 @@
+# No mandatory new heavy dependencies.
+# SciPy is optional; if present, rejection-aware Hungarian assignment is used.
