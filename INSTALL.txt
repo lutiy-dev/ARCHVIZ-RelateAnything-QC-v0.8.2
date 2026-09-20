@@ -1,0 +1,5 @@
+Clone:
+git clone https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.8.2.git "Q:\AI_ArchViz\ComfyUI_windows_portable\ComfyUI\custom_nodes\ARCHVIZ-RelateAnything-QC-v0.8.2"
+
+Restart ComfyUI.
+Search: RA · SMART BEFORE vs AFTER QC · v0.8.2
