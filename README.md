@@ -129,7 +129,7 @@ Use synthetic / known rectangles and verify:
 4. one rectangle added → one unmatched AFTER candidate;
 5. one rectangle moved → measured drift or explicit rejection;
 6. empty sets → `INSUFFICIENT_DATA` and Geometry `NOT_EVALUATED`;
-7. display mode/count changed → **full report and JSON decision metrics remain unchanged**.
+7. display mode/count changed → **full report and JSON decision metrics remain unchanged**.\n\nSynthetic control script:\n\n```bat\npython tests\\test_qc_v091_synthetic.py\n```
 
 ## Detector benchmark protocol
 
