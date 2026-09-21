@@ -107,3 +107,41 @@ Restart ComfyUI and import:
 - v0.7 — deterministic BEFORE vs AFTER bbox QC
 - v0.8.2 — normalized rejection-aware Smart Matcher
 - **v0.9 — stable paired-region sampling + v0.8.2 QC core**
+
+
+## Links
+
+### Current project
+- **ARCHVIZ RelateAnything QC v0.9**  
+  https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.9
+- **Main v0.9 workflow**  
+  https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.9/blob/main/workflows/ARCHVIZ_RELATEANYTHING_STABLE_SAMPLING_QC_v009.json
+- **Stable sampler source**  
+  https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.9/blob/main/stable_sampler_v09.py
+
+### Required / related project components
+- **RelateAnything ONNX / RARegions v0.6**  
+  https://github.com/lutiy-dev/ComfyUI-RelateAnything-v0.6
+- **RelateAnything model: maelic/relsgg-vits16plus**  
+  https://huggingface.co/maelic/relsgg-vits16plus
+- **SAM 3 upstream project**  
+  https://github.com/facebookresearch/sam3
+- **ComfyUI**  
+  https://github.com/comfyanonymous/ComfyUI
+- **SciPy linear_sum_assignment / Hungarian assignment docs**  
+  https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html
+
+### Previous QC versions
+- **v0.7 — deterministic BEFORE vs AFTER bbox QC**  
+  https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.7
+- **v0.8.2 — normalized rejection-aware Smart Matcher**  
+  https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.8.2
+
+### Installation
+Clone v0.9 directly into ComfyUI:
+
+```bat
+git clone https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.9.git "Q:\AI_ArchViz\ComfyUI_windows_portable\ComfyUI\custom_nodes\ARCHVIZ-RelateAnything-QC-v0.9"
+```
+
+If your ComfyUI is installed on another drive or folder, keep the same repository URL and only change the destination path after it.
