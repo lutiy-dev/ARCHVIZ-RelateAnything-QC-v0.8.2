@@ -1,47 +1,109 @@
-# ARCHVIZ RelateAnything QC v0.8.2
+# ARCHVIZ RelateAnything QC v0.9
 
-Rejection-aware BEFORE vs AFTER geometry QC for AI-assisted architectural visualization in ComfyUI.
+Stable paired-region geometry QC for AI-assisted architectural visualization in ComfyUI.
 
-## v0.8.2
-- normalized weighted cost (0..1 component penalties, divided by active weight sum)
-- rejection-aware Hungarian assignment with dummy unmatched slots
-- explicit `accept_match_cost` and `dummy_unmatched_cost`
-- `Geometry = NOT_EVALUATED` when reliable matches are insufficient
-- candidate/accepted cost diagnostics and reliable match fraction
-- visual overlay remains GREEN matched, YELLOW drifted, RED missing, BLUE added
-- RelateAnything semantic delta remains advisory only
+v0.9 builds on the verified rejection-aware Smart Matcher from v0.8.2 and adds a **stable paired sampling layer** so BEFORE and AFTER are compared on the same spatially distributed facade sample instead of simply using the first detections returned by SAM3.
 
-## Defaults
-`accept_match_cost=0.55`, `dummy_unmatched_cost=0.35`, `min_reliable_match_fraction=0.50`.
+## Status
 
-Clone directly into ComfyUI/custom_nodes and search for:
-`RA · SMART BEFORE vs AFTER QC · v0.8.2`.
+**VERIFIED LAB**
 
+Validated behavior so far:
+- same image → same image: PASS, 16/16 reliable matches, zero drift;
+- multiple real AI AFTER tests: meaningful WARN/FAIL results;
+- rejection-aware Hungarian matching avoids forcing obviously bad pairs;
+- v0.9 adds stable paired sampling to reduce detector-selection variance on dense facades.
 
-## v0.9 extension · Stable Paired Region Sampling
+## Pipeline
 
-The next LAB step is now included in this repository.
+```text
+BEFORE / geometry truth
+        ↓
+      SAM3
+        ↓
+RARegions candidates (up to 32)
+        ↘
+         Stable Paired Region Sampler v0.9
+        ↗
+RARegions candidates (up to 32)
+        ↑
+      SAM3
+        ↑
+AFTER / AI result
 
-New node:
+Stable paired subset
+        ↓
+Rejection-aware Smart QC core (v0.8.2)
+        ↓
+Overlay + PASS / WARN / FAIL + JSON
+```
 
-`RA · STABLE PAIRED REGION SAMPLER · v0.9`
+## Nodes
 
+### RA · STABLE PAIRED REGION SAMPLER · v0.9
 Purpose:
-- let `RARegionsV06` collect up to 32 candidate regions on both BEFORE and AFTER;
-- sample a stable paired subset of 16 regions instead of relying on the first 16 detections;
+- collect a larger candidate pool on BEFORE and AFTER;
 - prefer shared spatial grid cells;
-- supplement with nearest normalized-center pairs when required;
-- output BEFORE/AFTER sampled regions in deterministic top-to-bottom / left-to-right order.
+- select one representative pair per shared cell;
+- supplement missing sample slots with nearest normalized-center pairs;
+- output deterministic top-to-bottom / left-to-right paired samples.
 
-New workflow:
-
-`workflows/ARCHVIZ_RELATEANYTHING_STABLE_SAMPLING_QC_v009.json`
-
-Baseline sampler settings:
-- candidate regions from RARegions: 32
+Default sampler settings:
+- candidate detections: 32
 - sample_count: 16
 - grid_rows: 4
 - grid_cols: 4
 - supplement_center_tolerance: 0.12
 
-The sampler is a stabilization layer, not geometry truth. Final PASS/WARN/FAIL still comes from the v0.8.2 rejection-aware QC node.
+### RA · SMART BEFORE vs AFTER QC · v0.8.2
+The verified QC core retained inside v0.9:
+- normalized weighted matching cost;
+- rejection-aware Hungarian assignment with dummy unmatched slots;
+- center / IoU / size / grid / neighborhood costs;
+- `Geometry = NOT_EVALUATED` when reliable pairs are insufficient;
+- visual overlay and detailed JSON diagnostics.
+
+Baseline QC settings used in current benchmark:
+- accept_match_cost: 0.35
+- dummy_unmatched_cost: 0.17
+- min_reliable_match_fraction: 0.50
+- warn_center_drift_pct: 1.0
+- warn_size_drift_pct: 8.0
+
+## Overlay
+
+- GREEN = reliable match
+- YELLOW = reliable match with geometry drift
+- RED = missing from AFTER
+- BLUE = added in AFTER
+
+RelateAnything semantic relations remain **advisory only**. Geometry truth is deterministic bbox/grid math.
+
+## Installation
+
+Clone directly into ComfyUI custom nodes:
+
+```bat
+git clone https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.9.git "Q:\AI_ArchViz\ComfyUI_windows_portable\ComfyUI\custom_nodes\ARCHVIZ-RelateAnything-QC-v0.9"
+```
+
+Keep the existing v0.6 ONNX / RARegions package installed.
+
+Restart ComfyUI and import:
+
+`workflows/ARCHVIZ_RELATEANYTHING_STABLE_SAMPLING_QC_v009.json`
+
+## Important limitations
+
+- Same camera / crop / composition is required for meaningful geometry QC.
+- SAM3 detection quality still matters; always inspect the overlay.
+- Dense repetitive facades can remain ambiguous.
+- v0.9 is still LAB: it should support human QC, not replace it.
+- Do not update the main Torch / Transformers stack for this node.
+
+## Repository history
+
+- v0.6 — RelateAnything ONNX integration
+- v0.7 — deterministic BEFORE vs AFTER bbox QC
+- v0.8.2 — normalized rejection-aware Smart Matcher
+- **v0.9 — stable paired-region sampling + v0.8.2 QC core**
