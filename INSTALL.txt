@@ -1,5 +1,32 @@
-Clone:
-git clone https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.8.2.git "Q:\AI_ArchViz\ComfyUI_windows_portable\ComfyUI\custom_nodes\ARCHVIZ-RelateAnything-QC-v0.8.2"
+ARCHVIZ RelateAnything QC v0.9
 
-Restart ComfyUI.
-Search: RA · SMART BEFORE vs AFTER QC · v0.8.2
+INSTALL
+
+1. Keep the existing RelateAnything ONNX / RARegions v0.6 package installed.
+
+2. Clone this repository directly to:
+
+Q:\AI_ArchViz\ComfyUI_windows_portable\ComfyUI\custom_nodes\ARCHVIZ-RelateAnything-QC-v0.9
+
+Command:
+
+git clone https://github.com/lutiy-dev/ARCHVIZ-RelateAnything-QC-v0.9.git "Q:\AI_ArchViz\ComfyUI_windows_portable\ComfyUI\custom_nodes\ARCHVIZ-RelateAnything-QC-v0.9"
+
+3. Restart ComfyUI.
+
+4. Verify node:
+RA · STABLE PAIRED REGION SAMPLER · v0.9
+
+5. Import workflow:
+workflows\ARCHVIZ_RELATEANYTHING_STABLE_SAMPLING_QC_v009.json
+
+6. Baseline:
+SAM3 max detections = 32
+RARegions max regions = 32
+Sampler sample_count = 16
+grid_rows = 4
+grid_cols = 4
+supplement_center_tolerance = 0.12
+
+No Torch / Transformers / NumPy upgrade is required.
+SciPy is optional; when available, the QC core uses rejection-aware Hungarian assignment.
