@@ -166,3 +166,9 @@ class RACompareSmartQCV082:
 
 NODE_CLASS_MAPPINGS={'RACompareSmartQCV082':RACompareSmartQCV082}
 NODE_DISPLAY_NAME_MAPPINGS={'RACompareSmartQCV082':'RA · SMART BEFORE vs AFTER QC · v0.8.2'}
+
+
+# v0.9 stable paired sampling extension
+from .stable_sampler_v09 import RAStablePairSamplerV09
+NODE_CLASS_MAPPINGS["RAStablePairSamplerV09"] = RAStablePairSamplerV09
+NODE_DISPLAY_NAME_MAPPINGS["RAStablePairSamplerV09"] = "RA · STABLE PAIRED REGION SAMPLER · v0.9"
