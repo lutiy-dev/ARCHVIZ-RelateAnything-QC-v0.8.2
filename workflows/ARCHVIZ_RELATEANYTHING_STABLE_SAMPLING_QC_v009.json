@@ -124,7 +124,7 @@
     {
       "id": 4,
       "type": "SAM3Grounding",
-      "title": "03A · SAM3 BEFORE · windows",
+      "title": "03A · SAM3 BEFORE · windows · max32",
       "pos": [
         760,
         0
@@ -192,13 +192,13 @@
       "widgets_values": [
         0.35,
         "window",
-        16
+        32
       ]
     },
     {
       "id": 5,
       "type": "SAM3Grounding",
-      "title": "03B · SAM3 AFTER · windows",
+      "title": "03B · SAM3 AFTER · windows · max32",
       "pos": [
         760,
         650
@@ -266,7 +266,7 @@
       "widgets_values": [
         0.35,
         "window",
-        16
+        32
       ]
     },
     {
@@ -386,7 +386,7 @@
     {
       "id": 8,
       "type": "RACompareSmartQCV082",
-      "title": "05 · SMART QC · v0.8.2 · stable-sampled",
+      "title": "05 · SMART QC CORE · v0.8.2 · v0.9 baseline",
       "pos": [
         1640,
         220
@@ -465,8 +465,8 @@
         1,
         1.5,
         1,
-        0.55,
         0.35,
+        0.17,
         1,
         8,
         0.2,
