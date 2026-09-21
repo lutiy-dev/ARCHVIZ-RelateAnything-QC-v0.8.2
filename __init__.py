@@ -312,7 +312,6 @@ class RACompareDiagnosticQCV091:
             f'Size drift mean {val(float(np.mean(sds)) if sds else None,2)}% | max {val(max(sds) if sds else None,2)}%',
             f'Order flips LR {len(st["left_right_order_flips"])} | UD {len(st["above_below_order_flips"])}',
             f'Grid changes rows {len(st["same_row_changes"])} | columns {len(st["same_column_changes"])}',
-            f'DISPLAY SAMPLE: mode {display_mode} | shown {shown} / {len(matches)} accepted pairs',
             'Overlay: GREEN stable | YELLOW drifted | ORANGE ambiguous | RED unmatched BEFORE candidate | BLUE unmatched AFTER candidate',
             'Unmatched regions are candidates only; detector benchmark with GT is required to confirm misses / false positives.'
         ]
