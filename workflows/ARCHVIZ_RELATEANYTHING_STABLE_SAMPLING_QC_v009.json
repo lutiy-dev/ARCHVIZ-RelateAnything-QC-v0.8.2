@@ -385,8 +385,8 @@
     },
     {
       "id": 8,
-      "type": "RACompareSmartQCV082",
-      "title": "05 · SMART QC CORE · v0.8.2 · v0.9 baseline",
+      "type": "RACompareSmartQCV09",
+      "title": "05 · SMART BEFORE vs AFTER QC · v0.9",
       "pos": [
         1640,
         220
@@ -455,7 +455,7 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "RACompareSmartQCV082"
+        "Node name for S&R": "RACompareSmartQCV09"
       },
       "widgets_values": [
         0.02,
