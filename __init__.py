@@ -7,7 +7,7 @@ try:
     HAS_SCIPY=True
 except Exception:
     linear_sum_assignment=None; HAS_SCIPY=False
-VERSION='0.8.2'
+VERSION='0.9.0'
 
 def _regions(v,name):
     if isinstance(v,list) and len(v)==1 and isinstance(v[0],dict): v=v[0]
@@ -137,7 +137,7 @@ def _semantic(before_json,after_json):
     bs={sig(r) for r in br}; aset={sig(r) for r in ar}; return {'available':True,'note':'Advisory only; never used as geometry truth.','removed':[list(x) for x in sorted(bs-aset)],'added':[list(x) for x in sorted(aset-bs)]}
 
 class RACompareSmartQCV082:
-    RETURN_TYPES=('IMAGE','STRING','STRING'); RETURN_NAMES=('qc_overlay','qc_report','qc_json'); FUNCTION='compare'; CATEGORY='RelateAnything/QC v0.8'; OUTPUT_NODE=True
+    RETURN_TYPES=('IMAGE','STRING','STRING'); RETURN_NAMES=('qc_overlay','qc_report','qc_json'); FUNCTION='compare'; CATEGORY='RelateAnything/QC v0.9'; OUTPUT_NODE=True
     @classmethod
     def INPUT_TYPES(cls):
         F=lambda d,mi,ma,st:('FLOAT',{'default':d,'min':mi,'max':ma,'step':st})
@@ -164,8 +164,8 @@ class RACompareSmartQCV082:
         if gstatus=='NOT_EVALUATED': lines.append(f'Geometry NOT_EVALUATED: reliable match fraction {reliable:.3f} < required {min_reliable_match_fraction:.3f} or fewer than 2 reliable pairs.')
         report='\n'.join(lines); return {'ui':{'text':[report]},'result':(ov,report,json.dumps(res,ensure_ascii=False,indent=2))}
 
-NODE_CLASS_MAPPINGS={'RACompareSmartQCV082':RACompareSmartQCV082}
-NODE_DISPLAY_NAME_MAPPINGS={'RACompareSmartQCV082':'RA · SMART BEFORE vs AFTER QC · v0.8.2'}
+NODE_CLASS_MAPPINGS={'RACompareSmartQCV082':RACompareSmartQCV082,'RACompareSmartQCV09':RACompareSmartQCV082}
+NODE_DISPLAY_NAME_MAPPINGS={'RACompareSmartQCV082':'RA · SMART BEFORE vs AFTER QC · v0.8.2 (legacy)','RACompareSmartQCV09':'RA · SMART BEFORE vs AFTER QC · v0.9'}
 
 
 # v0.9 stable paired sampling extension
